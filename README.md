@@ -27,7 +27,7 @@ This project demonstrates how to integrate an HTML form with Google Sheets to co
 ### Step 1: Create the Google Sheet
 1. Open Google Sheets and create a new spreadsheet.
 2. Name the spreadsheet (e.g., `html-to-sheet`).
-
+![loading...](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20011600322.png)
 4. Add the following headers in the first row (exactly as shown):
    - `timestamp`
    - `fname`
@@ -37,13 +37,59 @@ This project demonstrates how to integrate an HTML form with Google Sheets to co
    - `message`
 
 ---
+![](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20011321.png)
 
 ### Step 2: Set Up the Google Apps Script
 1. Go to `Extensions` > `Apps Script` in the Google Sheets menu.
-2. Copy and paste the provided `Apps Script` code into the script editor.
-3. Save the project with a name (e.g., `HTML to Sheet Integration`).
-4. Run the `intialSetup` function in the Apps Script editor to link the script with your spreadsheet.
-5. Deploy the script as a Web App:
+![loading...](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20011428.png)
+3. Copy and paste the provided `Apps Script` code into the script editor.
+![loading...](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20011600.png)
+```js
+var sheetName = 'html-to-sheet';
+var scriptProp = PropertiesService.getScriptProperties();
+
+function intialSetup() {
+  var activeSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  scriptProp.setProperty('key', activeSpreadsheet.getId());
+}
+
+function doPost(e) {
+  var lock = LockService.getScriptLock();
+  lock.tryLock(10000);
+  try {
+    var doc = SpreadsheetApp.openById(scriptProp.getProperty('key'));
+    var sheet = doc.getSheetByName(sheetName);
+    var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+    var nextRow = sheet.getLastRow() + 1;
+    var newRow = headers.map(function (header) {
+      return header === 'timestamp' ? new Date() : e.parameter[header] || '';
+    });
+    sheet.getRange(nextRow, 1, 1, newRow.length).setValues([newRow]);
+    return ContentService.createTextOutput(
+      JSON.stringify({ result: 'success', row: nextRow })
+    ).setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    return ContentService.createTextOutput(
+      JSON.stringify({ result: 'error', error: error.toString() })
+    ).setMimeType(ContentService.MimeType.JSON);
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+```
+
+5. Save the project with a name (e.g., `HTML to Sheet Integration`).
+![loading...](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20011620.png)
+
+7. Run the `intialSetup` function in the Apps Script editor to link the script with your spreadsheet.
+![loading...](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20011632.png)
+![loading...](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20011641.png)
+![loading...](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20011700.png)
+
+
+
+9. Deploy the script as a Web App:
    - Go to `Deploy` > `New Deployment`.
    - Choose `Web App`.
    - Set the permissions to `Anyone` for public access.
