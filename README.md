@@ -125,8 +125,8 @@ This project demonstrates how to integrate an HTML form with Google Sheets to co
    ![loading...](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20014448.png)
 
 ## Result
-### Enter your details
+### Enter your details [click here](https://akashkobal.github.io/html-to-google-sheet/)
 ![loading...](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20012210.png)
 
-## Details stored in google sheet
+## Details stored in google sheet [click here](https://docs.google.com/spreadsheets/d/1zPbH5LdoOUcMdnJDuxQ9LEwx23imnGk2FXVpYy5-1ew/edit?usp=sharing)
 ![loading...](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20012222.png)
