@@ -27,7 +27,8 @@ This project demonstrates how to integrate an HTML form with Google Sheets to co
 ### Step 1: Create the Google Sheet
 1. Open Google Sheets and create a new spreadsheet.
 2. Name the spreadsheet (e.g., `html-to-sheet`).
-3. Add the following headers in the first row (exactly as shown):
+
+4. Add the following headers in the first row (exactly as shown):
    - `timestamp`
    - `fname`
    - `lname`
