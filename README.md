@@ -86,19 +86,38 @@ function doPost(e) {
 ![loading...](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20011632.png)
 ![loading...](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20011641.png)
 ![loading...](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20011700.png)
-
-
+![loading...](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20011708.png)
+![loading...](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20011730.png)
 
 9. Deploy the script as a Web App:
    - Go to `Deploy` > `New Deployment`.
+     ![loading...](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20011757.png)
    - Choose `Web App`.
+     
+![loading...](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20011809.png)
    - Set the permissions to `Anyone` for public access.
+     
+![loading...](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20011837.png)
+     
+![loading...](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20011852.png)
    - Deploy and note down the generated **Web App URL**.
+     
+![loading...](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20011929.png)
 
 ---
 
 ### Step 3: Update the Frontend Script
-1. In the HTML file, replace the `scriptURL` in the JavaScript section with your Web App URL.
+1. In the HTML file action method, replace the  `YOUR_WEB_APP_URL_HERE` in the JavaScript section with your Web App URL.
+   ![loading...](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20014454.png)
 
    ```javascript
    const scriptURL = 'YOUR_WEB_APP_URL_HERE';
+   ```
+   ![loading...](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20014448.png)
+
+## Result
+###Enter your details
+![loading...](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20012210.png)
+
+## Details stored in google sheet
+![loading...](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20012222.png)
