@@ -2,7 +2,10 @@
 
 This project demonstrates how to integrate an HTML form with Google Sheets to collect user inputs and save them automatically. It uses Google Apps Script as the backend and JavaScript on the frontend to handle form submissions.
 
+---
+
 ## Features
+
 - Submit form data directly to Google Sheets.
 - Custom-styled form using HTML and CSS.
 - JavaScript-powered form submission without page reload.
@@ -25,10 +28,13 @@ This project demonstrates how to integrate an HTML form with Google Sheets to co
 ## Setup Instructions
 
 ### Step 1: Create the Google Sheet
-1. Open Google Sheets and create a new spreadsheet.
+
+1. Open [Google Sheets](https://sheets.google.com) and create a new spreadsheet.
 2. Name the spreadsheet (e.g., `html-to-sheet`).
-![loading...](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20011600322.png)
-4. Add the following headers in the first row (exactly as shown):
+
+   ![Create Google Sheet](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20011600322.png)
+
+3. Add the following headers in the first row (exactly as shown):
    - `timestamp`
    - `fname`
    - `lname`
@@ -36,48 +42,51 @@ This project demonstrates how to integrate an HTML form with Google Sheets to co
    - `phone`
    - `message`
 
+   ![Headers in Google Sheet](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20011321.png)
+
 ---
-![](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20011321.png)
 
 ### Step 2: Set Up the Google Apps Script
+
 1. Go to `Extensions` > `Apps Script` in the Google Sheets menu.
-![loading...](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20011428.png)
-3. Copy and paste the provided `Apps Script` code into the script editor.
-![loading...](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20011600.png)
-```js
-var sheetName = 'html-to-sheet';
-var scriptProp = PropertiesService.getScriptProperties();
 
-function intialSetup() {
-  var activeSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-  scriptProp.setProperty('key', activeSpreadsheet.getId());
-}
+   ![Open Apps Script](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20011428.png)
 
-function doPost(e) {
-  var lock = LockService.getScriptLock();
-  lock.tryLock(10000);
-  try {
-    var doc = SpreadsheetApp.openById(scriptProp.getProperty('key'));
-    var sheet = doc.getSheetByName(sheetName);
-    var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
-    var nextRow = sheet.getLastRow() + 1;
-    var newRow = headers.map(function (header) {
-      return header === 'timestamp' ? new Date() : e.parameter[header] || '';
-    });
-    sheet.getRange(nextRow, 1, 1, newRow.length).setValues([newRow]);
-    return ContentService.createTextOutput(
-      JSON.stringify({ result: 'success', row: nextRow })
-    ).setMimeType(ContentService.MimeType.JSON);
-  } catch (error) {
-    return ContentService.createTextOutput(
-      JSON.stringify({ result: 'error', error: error.toString() })
-    ).setMimeType(ContentService.MimeType.JSON);
-  } finally {
-    lock.releaseLock();
-  }
-}
+2. Copy and paste the following code into the script editor:
 
-```
+   ```javascript
+   var sheetName = 'html-to-sheet';
+   var scriptProp = PropertiesService.getScriptProperties();
+
+   function intialSetup() {
+     var activeSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+     scriptProp.setProperty('key', activeSpreadsheet.getId());
+   }
+
+   function doPost(e) {
+     var lock = LockService.getScriptLock();
+     lock.tryLock(10000);
+     try {
+       var doc = SpreadsheetApp.openById(scriptProp.getProperty('key'));
+       var sheet = doc.getSheetByName(sheetName);
+       var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+       var nextRow = sheet.getLastRow() + 1;
+       var newRow = headers.map(function (header) {
+         return header === 'timestamp' ? new Date() : e.parameter[header] || '';
+       });
+       sheet.getRange(nextRow, 1, 1, newRow.length).setValues([newRow]);
+       return ContentService.createTextOutput(
+         JSON.stringify({ result: 'success', row: nextRow })
+       ).setMimeType(ContentService.MimeType.JSON);
+     } catch (error) {
+       return ContentService.createTextOutput(
+         JSON.stringify({ result: 'error', error: error.toString() })
+       ).setMimeType(ContentService.MimeType.JSON);
+     } finally {
+       lock.releaseLock();
+     }
+   }
+
 
 5. Save the project with a name (e.g., `HTML to Sheet Integration`).
 ![loading...](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20011620.png)
@@ -116,7 +125,7 @@ function doPost(e) {
    ![loading...](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20014448.png)
 
 ## Result
-###Enter your details
+### Enter your details
 ![loading...](https://github.com/AkashKobal/html-to-google-sheet/blob/main/Screenshots/Screenshot%202024-12-02%20012210.png)
 
 ## Details stored in google sheet
